@@ -1,5 +1,6 @@
 #include "point.h"
 #include <iostream>
+#include <assert.h>
 
 Game::Game(){
     int squareNum = 0;
@@ -19,19 +20,47 @@ Game::Game(){
     }
 }
 
+bool Game::check(){
+    for (Line line :hLines){
+        int volts;
+        int coins;
+        int unknown;
+        for (Square *square :line.squares){
+            switch (square->state)
+            {
+            case Square::values::unknown:
+                unknown++;
+                break;
+            case Square::values::one:
+                coins+=1;
+                break;
+            case Square::values::two:
+                coins+=2;
+                break;
+            case Square::values::three:
+                coins+=3;
+                break;
+            case Square::values::volt:
+                volts++;
+                break;
+            
+            default:
+                assert(!"invalid state");
+                break;
+            }
+        }
+    }
+}
+
 
 int main(){
     Game game;
-    // for (Line line : game.hLines){
-    //     for (int i=0; i<5; i++){
-    //         std::cout << line.squares[i]->value << ' ';
-    //     }
-    //     std::cout << '\n';
-    // }
-
-    for(Line *line : game.hLines[2].squares[2]->lines){
-        for (Square *square : line->squares){
-            std::cout << square->value << '\n';
+    for (Line line : game.hLines){
+        for (int i=0; i<5; i++){
+            std::cout << line.squares[i]->value << ' ';
         }
+        std::cout << '\n';
     }
+
+
 }
