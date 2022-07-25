@@ -2,6 +2,8 @@ struct Square;
 
 struct Line{
     Square *squares[5];
+    unsigned volts=0;
+    unsigned coins=0;
 };
 
 struct Square{
@@ -25,4 +27,6 @@ struct Game{
     Line vLines[5];
     void solve();
     bool check();
+    void cliInput();
+    void output();
 };
